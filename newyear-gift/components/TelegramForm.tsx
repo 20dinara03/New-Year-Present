@@ -45,7 +45,7 @@ export default function TelegramForm({ name }: { name: string }) {
             className="mt-10 space-y-4"
         >
             <p className="text-sm text-gray-400">
-                Оставь Telegram, я пришлю подарок лично ✨
+                Оставь Telegram, я пришлю напоминание, когда придет время открывать подарок ✨
             </p>
 
             <input
