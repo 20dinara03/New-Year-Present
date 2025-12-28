@@ -3,7 +3,14 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-export default function TelegramForm({ name }: { name: string }) {
+export default function TelegramForm({
+    name,
+    slug,
+}: {
+    name: string;
+    slug: string;
+}) {
+
     const [telegram, setTelegram] = useState("");
     const [sent, setSent] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -20,9 +27,10 @@ export default function TelegramForm({ name }: { name: string }) {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                name,
+                name,        
+                slug,        
                 telegram,
-                pageUrl, // ✅ добавили
+                pageUrl,
             }),
         });
 

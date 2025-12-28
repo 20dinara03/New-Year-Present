@@ -4,7 +4,7 @@ import { sendTelegramMessage } from "@/lib/telegram";
 
 export async function POST(req: Request) {
     try {
-        const { name, telegram, pageUrl } = await req.json();
+        const { name, slug, telegram, pageUrl } = await req.json();
 
         if (!telegram || !telegram.startsWith("@")) {
             return NextResponse.json(
@@ -14,15 +14,15 @@ export async function POST(req: Request) {
         }
 
         // 1️⃣ сохраняем пользователя
-        const { error } = await supabase
-            .from("users")
-            .insert([
-                {
-                    name,
-                    telegram,
-                    locale: "ru",
-                },
-            ]);
+        const { error } = await supabase.from("users").insert([
+            {
+                name,
+                slug,        
+                telegram,
+                locale: "ru",
+            },
+        ]);
+
 
         if (error) throw error;
 

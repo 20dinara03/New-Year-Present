@@ -121,7 +121,11 @@ export default function GreetingContent() {
                     </motion.p>
 
                     <GiftSection />
-                    <TelegramForm name={senderName} />
+                    <TelegramForm
+                        name={senderName}
+                        slug={id ?? "default"}
+                    />
+
                 </motion.div>
 
                 {/* 💌 ПРАВАЯ КОЛОНКА — ПРИЖАТА К ВЕРХУ */}
