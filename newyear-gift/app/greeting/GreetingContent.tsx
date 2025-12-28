@@ -3,6 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { motion, type Variants } from "framer-motion";
 import { greetings } from "@/data/greetings";
+import GiftSection from "@/components/GiftSection";
 
 const container: Variants = {
     hidden: { opacity: 0 },
@@ -124,6 +125,7 @@ export default function GreetingContent() {
                         </motion.span>
                     ))}
                 </motion.p>
+                <GiftSection />
             </motion.div>
         </main>
     );
