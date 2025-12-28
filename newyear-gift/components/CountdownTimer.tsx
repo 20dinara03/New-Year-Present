@@ -1,49 +1,60 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { isGiftUnlocked } from "@/lib/time-client";
-import CountdownTimer from "./CountdownTimer";
-import GiftBox from "./GiftBox";
+import { getTimeLeft } from "@/lib/time-client";
 import { motion } from "framer-motion";
 
-export default function GiftSection() {
-    const [unlocked, setUnlocked] = useState(false);
+type TimeLeft = {
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+} | null;
+
+export default function CountdownTimer() {
+    const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft());
 
     useEffect(() => {
-        setUnlocked(isGiftUnlocked());
+        const interval = setInterval(() => {
+            setTimeLeft(getTimeLeft());
+        }, 1000);
+
+        return () => clearInterval(interval);
     }, []);
 
+    if (!timeLeft) {
+        return null;
+    }
+
     return (
-        <div className="mt-12 space-y-4 text-center">
-            {!unlocked && (
-                <>
-                    <GiftBox locked />
-                    <CountdownTimer />
-                    <p className="text-sm text-gray-500">
-                        Немного терпения… 🎄
-                    </p>
-                </>
-            )}
+        <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex justify-center gap-4 text-center text-white"
+        >
+            <TimeBlock value={timeLeft.days} label="дн" />
+            <TimeBlock value={timeLeft.hours} label="ч" />
+            <TimeBlock value={timeLeft.minutes} label="м" />
+            <TimeBlock value={timeLeft.seconds} label="с" />
+        </motion.div>
+    );
+}
 
-            {unlocked && (
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8 }}
-                    className="space-y-4"
-                >
-                    <h2 className="text-2xl font-semibold">
-                        🎉 Сюрприз!
-                    </h2>
-
-                    <video
-                        src="/videos/main-gift.mp4"
-                        autoPlay
-                        controls
-                        className="rounded-xl mx-auto shadow-xl"
-                    />
-                </motion.div>
-            )}
+function TimeBlock({
+    value,
+    label,
+}: {
+    value: number;
+    label: string;
+}) {
+    return (
+        <div className="flex flex-col items-center">
+            <div className="bg-white text-black rounded-xl px-4 py-2 text-2xl font-semibold min-w-[56px]">
+                {String(value).padStart(2, "0")}
+            </div>
+            <span className="text-xs text-gray-400 mt-1">
+                {label}
+            </span>
         </div>
     );
 }
