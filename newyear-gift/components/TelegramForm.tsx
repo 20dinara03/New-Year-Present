@@ -27,8 +27,8 @@ export default function TelegramForm({
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                name,        
-                slug,        
+                name,
+                slug,
                 telegram,
                 pageUrl,
             }),
@@ -45,7 +45,10 @@ export default function TelegramForm({
                 animate={{ opacity: 1 }}
                 className="text-green-400 mt-6"
             >
-                Я напишу тебе 🎁
+                Пожалуйста, перейди в бота и нажми /start 💬
+                Я напишу тебе, когда придёт время открыть подарок 🎁
+
+                👉 https://t.me/dinara_gift_2026_bot
             </motion.p>
         );
     }
