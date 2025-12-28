@@ -112,22 +112,12 @@ export default function GreetingContent() {
                     </motion.div>
 
                     <motion.p
-                        variants={item}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
                         className="text-lg text-gray-200 leading-relaxed"
                     >
-                        {text.split(" ").map((word, i) => (
-                            <motion.span
-                                key={i}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{
-                                    delay: i * 0.015,
-                                    duration: 0.25,
-                                }}
-                            >
-                                {word}{" "}
-                            </motion.span>
-                        ))}
+                        {text}
                     </motion.p>
 
                     <GiftSection />
