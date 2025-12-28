@@ -6,9 +6,9 @@ import { GIFT_UNLOCK_DATE } from "@/lib/time-server";
 export async function GET(req: Request) {
     try {
         // 1️⃣ защита — чтобы нельзя было дергать кому угодно
-        const isCron = req.headers.get("x-vercel-cron");
+        const userAgent = req.headers.get("user-agent");
 
-        if (!isCron) {
+        if (!userAgent?.includes("vercel-cron")) {
             return NextResponse.json(
                 { error: "Not a cron request" },
                 { status: 401 }
