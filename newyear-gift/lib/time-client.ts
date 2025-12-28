@@ -1,4 +1,4 @@
-export const GIFT_UNLOCK_DATE = new Date("2025-12-28T17:35:00");
+export const GIFT_UNLOCK_DATE = new Date("2025-12-28T18:55:00");
 
 export function isGiftUnlocked() {
     return new Date() >= GIFT_UNLOCK_DATE;
