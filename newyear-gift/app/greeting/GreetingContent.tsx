@@ -6,6 +6,7 @@ import { greetings } from "@/data/greetings";
 import GiftSection from "@/components/GiftSection";
 import TelegramForm from "@/components/TelegramForm";
 import WishForm from "@/components/WishForm";
+import { isGiftUnlocked } from "@/lib/time-client";
 
 const container: Variants = {
     hidden: { opacity: 0 },
@@ -121,10 +122,12 @@ export default function GreetingContent() {
                     </motion.p>
 
                     <GiftSection />
-                    <TelegramForm
-                        name={senderName}
-                        slug={id ?? "default"}
-                    />
+                    {!isGiftUnlocked() && (
+                        <TelegramForm
+                            name={senderName}
+                            slug={id ?? "default"}
+                        />
+                    )}
 
                 </motion.div>
 
