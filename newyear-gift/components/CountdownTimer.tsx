@@ -1,29 +1,49 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { GIFT_UNLOCK_DATE } from "@/lib/time";
+import { isGiftUnlocked } from "@/lib/time";
+import CountdownTimer from "./CountdownTimer";
+import GiftBox from "./GiftBox";
+import { motion } from "framer-motion";
 
-export default function CountdownTimer() {
-    const [timeLeft, setTimeLeft] = useState(
-        GIFT_UNLOCK_DATE.getTime() - Date.now()
-    );
+export default function GiftSection() {
+    const [unlocked, setUnlocked] = useState(false);
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            setTimeLeft(GIFT_UNLOCK_DATE.getTime() - Date.now());
-        }, 1000);
-        return () => clearInterval(timer);
+        setUnlocked(isGiftUnlocked());
     }, []);
 
-    if (timeLeft <= 0) return null;
-
-    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
-
     return (
-        <p className="text-sm text-gray-400">
-            Подарок откроется через {days}д {hours}ч {minutes}м 🎄
-        </p>
+        <div className="mt-12 space-y-4 text-center">
+            {!unlocked && (
+                <>
+                    <GiftBox locked />
+                    <CountdownTimer />
+                    <p className="text-sm text-gray-500">
+                        Немного терпения… 🎄
+                    </p>
+                </>
+            )}
+
+            {unlocked && (
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8 }}
+                    className="space-y-4"
+                >
+                    <h2 className="text-2xl font-semibold">
+                        🎉 Сюрприз!
+                    </h2>
+
+                    <video
+                        src="/videos/main-gift.mp4"
+                        autoPlay
+                        controls
+                        className="rounded-xl mx-auto shadow-xl"
+                    />
+                </motion.div>
+            )}
+        </div>
     );
 }

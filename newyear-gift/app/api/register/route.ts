@@ -4,7 +4,7 @@ import { sendTelegramMessage } from "@/lib/telegram";
 
 export async function POST(req: Request) {
     try {
-        const { name, telegram } = await req.json();
+        const { name, telegram, pageUrl } = await req.json();
 
         if (!telegram || !telegram.startsWith("@")) {
             return NextResponse.json(
@@ -28,7 +28,10 @@ export async function POST(req: Request) {
 
         // 2️⃣ уведомление тебе
         await sendTelegramMessage(
-            `🎁 Новый контакт\n\nИмя: ${name}\nTelegram: ${telegram}`
+            `🎁 Новый контакт\n\n` +
+            `Имя: ${name}\n` +
+            `Telegram: ${telegram}\n\n` +
+            `🔗 Страница:\n${pageUrl || "—"}`
         );
 
         return NextResponse.json({ success: true });

@@ -1,9 +1,19 @@
-export async function sendTelegramMessage(text: string) {
+export async function sendTelegramMessage(
+    text: string,
+    chatId?: string
+) {
     const token = process.env.TELEGRAM_BOT_TOKEN;
-    const chatId = process.env.TELEGRAM_CHAT_ID;
+    const adminChatId = process.env.TELEGRAM_ADMIN_CHAT_ID;
 
-    if (!token || !chatId) {
-        console.warn("Telegram env variables are missing");
+    if (!token) {
+        console.warn("Telegram token missing");
+        return;
+    }
+
+    const targetChatId = chatId ?? adminChatId;
+
+    if (!targetChatId) {
+        console.warn("Telegram chatId missing");
         return;
     }
 
@@ -15,7 +25,7 @@ export async function sendTelegramMessage(text: string) {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            chat_id: chatId,
+            chat_id: targetChatId,
             text,
             parse_mode: "HTML",
         }),
