@@ -51,7 +51,7 @@ export default function WishForm({ fromName }: WishFormProps) {
             className="w-full space-y-4"
         >
             <h2 className="text-2xl font-semibold text-center">
-                Напиши мне что-нибудь 💌
+                Напиши мне что-нибудь анонимно 💌
             </h2>
 
             <textarea
