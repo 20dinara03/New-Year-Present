@@ -43,12 +43,31 @@ export default function TelegramForm({
             <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-green-400 mt-6"
+                className="text-green-400 mt-6 text-center space-y-2"
             >
-                Пожалуйста, перейди в бота и нажми /start 💬
-                Я напишу тебе, когда придёт время открыть подарок 🎁
+                <span>
+                    Пожалуйста, перейди в бота и нажми <b>/start</b> 💬
+                    <br />
+                    Я напишу тебе, когда придёт время открыть подарок 🎁
+                </span>
 
-                👉 https://t.me/dinara_gift_2026_bot
+                <br />
+
+                <a
+                    href="https://t.me/dinara_gift_2026_bot"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="
+            inline-block
+            mt-2
+            text-white
+            underline
+            hover:text-green-300
+            transition
+        "
+                >
+                    👉 t.me/dinara_gift_2026_bot
+                </a>
             </motion.p>
         );
     }
