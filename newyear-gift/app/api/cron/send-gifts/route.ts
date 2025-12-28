@@ -3,13 +3,14 @@ import { supabase } from "@/lib/supabase";
 import { sendTelegramMessage } from "@/lib/telegram";
 import { GIFT_UNLOCK_DATE } from "@/lib/time-server";
 
-export async function POST(req: Request) {
+export async function GET(req: Request) {
     try {
         // 1️⃣ защита — чтобы нельзя было дергать кому угодно
-        const authHeader = req.headers.get("authorization");
-        if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+        const isCron = req.headers.get("x-vercel-cron");
+
+        if (!isCron) {
             return NextResponse.json(
-                { error: "Unauthorized" },
+                { error: "Not a cron request" },
                 { status: 401 }
             );
         }
