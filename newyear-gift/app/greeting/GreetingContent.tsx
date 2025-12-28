@@ -1,10 +1,10 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { greetings } from "@/data/greetings";
 
-const container = {
+const container: Variants = {
     hidden: { opacity: 0 },
     show: {
         opacity: 1,
@@ -14,13 +14,20 @@ const container = {
     },
 };
 
-const item = {
-    hidden: { opacity: 0, y: 20, filter: "blur(6px)" },
+const item: Variants = {
+    hidden: {
+        opacity: 0,
+        y: 20,
+        filter: "blur(6px)",
+    },
     show: {
         opacity: 1,
         y: 0,
         filter: "blur(0px)",
-        transition: { duration: 0.8, ease: "easeOut" },
+        transition: {
+            duration: 0.8,
+            ease: "easeOut",
+        },
     },
 };
 
@@ -37,7 +44,7 @@ export default function GreetingContent() {
 
     return (
         <main className="relative min-h-screen flex items-center justify-center bg-black text-white px-4 overflow-hidden">
-            {/* ✨ фон */}
+            {/* ✨ Фон */}
             <div className="absolute inset-0 bg-gradient-to-br from-zinc-900 via-black to-zinc-800 opacity-80" />
             <div className="absolute -top-32 -left-32 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
@@ -96,22 +103,27 @@ export default function GreetingContent() {
                     )}
                 </motion.div>
 
-                {/* 💬 Текст — как открытка */}
-                <motion.div
-                    variants={item}
-                    className="space-y-4 text-lg text-gray-200 leading-relaxed"
+                {/* 💬 Текст — появление по словам */}
+                <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    className="text-lg text-gray-200 leading-relaxed"
                 >
                     {text.split(" ").map((word, i) => (
                         <motion.span
                             key={i}
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ delay: i * 0.015 }}
+                            transition={{
+                                delay: i * 0.015,
+                                duration: 0.25,
+                            }}
                         >
                             {word}{" "}
                         </motion.span>
                     ))}
-                </motion.div>
+                </motion.p>
             </motion.div>
         </main>
     );
