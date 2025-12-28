@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { isGiftUnlocked } from "@/lib/time";
+import { isGiftUnlocked } from "@/lib/time-client";
 import CountdownTimer from "./CountdownTimer";
 import GiftBox from "./GiftBox";
 import { motion } from "framer-motion";
