@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 import { sendTelegramMessage } from "@/lib/telegram";
-import { GIFT_UNLOCK_DATE } from "@/lib/time";
+import { GIFT_UNLOCK_DATE } from "@/lib/time-server";
 
 export async function POST(req: Request) {
     try {
