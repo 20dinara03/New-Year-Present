@@ -27,8 +27,9 @@ export async function GET(req: Request) {
         // 3️⃣ берём всех, кому ещё не отправляли
         const { data: users, error } = await supabase
             .from("users")
-            .select("id, name, telegram")
-            .eq("notified", false);
+            .select("id, name, telegram_chat_id")
+            .eq("notified", false)
+            .not("telegram_chat_id", "is", null);
 
         if (error) throw error;
 
@@ -46,7 +47,7 @@ https://new-year-present.vercel.app/greeting?id=${encodeURIComponent(
             )}
             `.trim();
 
-            await sendTelegramMessage(message, user.telegram);
+            await sendTelegramMessage(message, user.telegram_chat_id.toString());
 
             // 5️⃣ помечаем, что уведомление отправлено
             await supabase
