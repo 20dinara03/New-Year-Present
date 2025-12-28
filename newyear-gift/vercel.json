@@ -2,7 +2,7 @@
     "crons": [
         {
             "path": "/api/cron/send-gifts",
-            "schedule": "20 18 28 12 *"
+            "schedule": "00 22 01 01 *"
         }
     ]
 }
