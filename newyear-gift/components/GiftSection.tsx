@@ -5,8 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { isGiftUnlocked } from "@/lib/time-client";
 import GiftBox from "./GiftBox";
 import CountdownTimer from "./CountdownTimer";
+import Certificate from "./Certificate";
 
-export default function GiftSection() {
+export default function GiftSection({name,}: {name: string;}) {
+
     const [unlocked, setUnlocked] = useState(false);
     const [opened, setOpened] = useState(false);
     const [shake, setShake] = useState(false);
@@ -52,18 +54,13 @@ export default function GiftSection() {
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="space-y-4 mt-6"
+                        className="space-y-6 mt-6"
                     >
                         <h2 className="text-2xl font-semibold">
                             🎉 Сюрприз!
                         </h2>
 
-                        <motion.video
-                            src="/videos/main-gift.mp4"
-                            autoPlay
-                            controls
-                            className="rounded-xl mx-auto shadow-xl"
-                        />
+                        <Certificate name={name} />
                     </motion.div>
                 )}
             </AnimatePresence>

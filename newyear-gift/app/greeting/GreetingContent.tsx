@@ -121,7 +121,10 @@ export default function GreetingContent() {
                         {text}
                     </motion.p>
 
-                    <GiftSection />
+                    <GiftSection
+                        name={senderName}
+                    />
+
                     {!isGiftUnlocked() && (
                         <TelegramForm
                             name={senderName}
