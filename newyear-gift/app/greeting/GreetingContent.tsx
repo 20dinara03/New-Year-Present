@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { motion, type Variants } from "framer-motion";
 import { greetings } from "@/data/greetings";
 import GiftSection from "@/components/GiftSection";
+import TelegramForm from "@/components/TelegramForm";
 
 const container: Variants = {
     hidden: { opacity: 0 },
@@ -126,6 +127,7 @@ export default function GreetingContent() {
                     ))}
                 </motion.p>
                 <GiftSection />
+                <TelegramForm name={title.replace(/ ✨| 🤍| 🎄/, "")} />
             </motion.div>
         </main>
     );
