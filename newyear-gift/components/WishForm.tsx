@@ -3,9 +3,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-export default function WishForm() {
+type WishFormProps = {
+    fromName: string;
+};
+
+export default function WishForm({ fromName }: WishFormProps) {
     const [message, setMessage] = useState("");
-    const [name, setName] = useState("");
     const [sent, setSent] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -19,7 +22,7 @@ export default function WishForm() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 message,
-                fromName: name || "Аноним",
+                from_name: fromName,
             }),
         });
 
@@ -34,7 +37,7 @@ export default function WishForm() {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-center text-lg text-gray-200"
             >
-                💌 Твоё сообщение доставлено  
+                💌 Твоё сообщение доставлено
                 <br />
                 Спасибо за тепло
             </motion.div>
@@ -45,7 +48,7 @@ export default function WishForm() {
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="w-full max-w-md space-y-4"
+            className="w-full space-y-4"
         >
             <h2 className="text-2xl font-semibold text-center">
                 Напиши мне что-нибудь 💌
@@ -57,7 +60,7 @@ export default function WishForm() {
                 placeholder="Тёплое пожелание, мысль или просто пару слов…"
                 className="
                     w-full
-                    min-h-[120px]
+                    min-h-[140px]
                     rounded-xl
                     bg-zinc-900
                     border
@@ -67,24 +70,6 @@ export default function WishForm() {
                     outline-none
                     focus:border-white
                     resize-none
-                "
-            />
-
-            <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Твоё имя (необязательно)"
-                className="
-                    w-full
-                    rounded-lg
-                    bg-zinc-900
-                    border
-                    border-zinc-700
-                    px-4
-                    py-2
-                    text-white
-                    outline-none
-                    focus:border-white
                 "
             />
 
@@ -104,6 +89,10 @@ export default function WishForm() {
             >
                 {loading ? "Отправляю…" : "Отправить 💌"}
             </button>
+
+            <p className="text-center text-sm text-gray-400">
+                Сообщение будет отправлено анонимно
+            </p>
         </motion.div>
     );
 }

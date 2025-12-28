@@ -35,14 +35,16 @@ export default function GreetingContent() {
 
     const { title, text, media } = greeting.config;
 
+    // ✅ имя отправителя для анонимного пожелания
+    const senderName = title.replace(/ ✨| 🤍| 🎄/, "");
+
     return (
-        <main className="relative min-h-screen flex items-center justify-center bg-black text-white px-4 overflow-hidden">
+        <main className="relative min-h-screen bg-black text-white px-4 overflow-hidden">
             {/* 🌌 Фон */}
             <div className="absolute inset-0 bg-gradient-to-br from-zinc-900 via-black to-zinc-800 opacity-80" />
             <div className="absolute -top-32 -left-32 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
 
-            {/* 🧱 Контейнер */}
             <motion.div
                 variants={container}
                 initial="hidden"
@@ -50,15 +52,17 @@ export default function GreetingContent() {
                 className="
                     relative
                     z-10
+                    mx-auto
+                    max-w-6xl
+                    w-full
                     grid
                     grid-cols-1
                     lg:grid-cols-[1.2fr_0.8fr]
                     gap-8
-                    max-w-6xl
-                    w-full
+                    py-16
                 "
             >
-                {/* 🎄 ЛЕВАЯ КОЛОНКА — ПОЗДРАВЛЕНИЕ */}
+                {/* 🎄 ЛЕВАЯ КОЛОНКА */}
                 <motion.div
                     variants={item}
                     className="
@@ -127,24 +131,22 @@ export default function GreetingContent() {
                     </motion.p>
 
                     <GiftSection />
-                    <TelegramForm name={title.replace(/ ✨| 🤍| 🎄/, "")} />
+                    <TelegramForm name={senderName} />
                 </motion.div>
 
-                {/* 💌 ПРАВАЯ КОЛОНКА — ПОЖЕЛАНИЕ */}
+                {/* 💌 ПРАВАЯ КОЛОНКА — ПРИЖАТА К ВЕРХУ */}
                 <motion.div
                     variants={item}
                     className="
+                        self-start
                         p-8
                         rounded-3xl
                         bg-white/5
                         backdrop-blur-xl
                         shadow-2xl
-                        flex
-                        items-center
-                        justify-center
                     "
                 >
-                    <WishForm />
+                    <WishForm fromName={senderName} />
                 </motion.div>
             </motion.div>
         </main>
