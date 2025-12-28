@@ -40,7 +40,7 @@ export async function POST(req: Request) {
 Я специально ждала этого момента.
 
 Открывай здесь 👇
-https://new-year-present.vercel.app/greeting?name=${encodeURIComponent(
+https://new-year-present.vercel.app/greeting?id=${encodeURIComponent(
                 user.name
             )}
             `.trim();

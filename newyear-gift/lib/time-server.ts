@@ -1,1 +1,1 @@
-export const GIFT_UNLOCK_DATE = new Date("2025-12-28T17:15:00");
+export const GIFT_UNLOCK_DATE = new Date("2025-12-28T16:35:00");
