@@ -6,23 +6,23 @@ import { GIFT_UNLOCK_DATE } from "@/lib/time-server";
 export async function GET(req: Request) {
     try {
         // 1️⃣ защита — чтобы нельзя было дергать кому угодно
-        const userAgent = req.headers.get("user-agent");
+        // const userAgent = req.headers.get("user-agent");
 
-        if (!userAgent?.includes("vercel-cron")) {
-            return NextResponse.json(
-                { error: "Not a cron request" },
-                { status: 401 }
-            );
-        }
+        // if (!userAgent?.includes("vercel-cron")) {
+        //     return NextResponse.json(
+        //         { error: "Not a cron request" },
+        //         { status: 401 }
+        //     );
+        // }
 
         // 2️⃣ проверяем дату
-        const now = new Date();
-        if (now < GIFT_UNLOCK_DATE) {
-            return NextResponse.json({
-                status: "too_early",
-                now,
-            });
-        }
+        // const now = new Date();
+        // if (now < GIFT_UNLOCK_DATE) {
+        //     return NextResponse.json({
+        //         status: "too_early",
+        //         now,
+        //     });
+        // }
 
         // 3️⃣ берём всех, кому ещё не отправляли
         const { data: users, error } = await supabase
